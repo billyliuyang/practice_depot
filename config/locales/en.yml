@@ -20,4 +20,33 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  
+  layouts:
+    application:
+      home:         "Home"
+      questions:    "Questions"
+      contact:      "Contact"
+      news:         "News"
+
+  store:
+    index:
+      add_html:     "Add to Cart"
+
+  carts:
+    cart:
+      title:        "Your Cart"
+      empty:        "Empty cart"
+      checkout:     "Checkout"
+
+  number:
+    currency:
+      format:
+        unit:       "$"
+        precision:  2
+        separator:  ","
+        delimiter:  "."
+        format:     "%u&nbsp;%n"
+
+  orders:
+    new:
+      title:        "Please enter your details"

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Depot</title>
+    <title>Pragprog Books Online Store</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,42 @@
   </head>
 
   <body class = '<%= controller.controller_name %>'>
-    <%= yield %>
+  	<div id="banner">
+  		<%= image_tag 'logo.png', alt: 'The Progmatic Bookshelf' %>
+  		<span class="title"><%= @page_title %></span>
+      <h1><%= LANGUAGES %></h1>
+      <h1><%= I18n.locale.to_s %></h1>
+      <%= form_tag store_index_path, class: 'locale' do %>
+        <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s), onchange: 'this.form.submit()' %>
+        <%= submit_tag 'Submit' %>
+        <%= javascript_tag "$('.locale input').hide()" %>  
+      <% end %>
+  	</div>
+  	<div id="columns">
+  		<div id="side">
+        <% if @cart %>
+            <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+              <%= render @cart %>
+            <% end %>
+        <% end %>
+  			<ul>
+  				<li><a href="/"><%= t('.home') %></a></li>
+  				<li><a href=""><%= t('.questions') %></a></li>
+  				<li><a href=""><%= t('.news') %></a></li>
+  				<li><a href=""><%= t('.contact') %></a></li>
+  			</ul>
+        <% if session[:user_id] %>
+          <ul>
+            <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'Products', products_path %></li>
+            <li><%= link_to 'Users', users_path %></li>
+            <li><%= button_to 'Logout', logout_path, method: :delete %></li>
+          </ul>
+        <% end %>
+  		</div>
+  	</div>
+  	<div id="main">
+  		<%= yield %>
+  	</div>
   </body>
 </html>
